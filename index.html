@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+
+<html dir="rtl" id="htmlDir" lang="ar">
+<head>
+<script>
+  if (window.location.hostname.startsWith('www.')) {
+    window.location.href = window.location.protocol + '//' + window.location.hostname.replace('www.', '') + window.location.pathname + window.location.search;
+  }
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
+   Bravix - حلول رقمية متكاملة
+  </title>
+<style>
+   @keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+#confirmation {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+        /* Reset وأنماط أساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #F47B20;
+            --primary-dark: #F47B20;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            transition: all 0.5s ease;
+        }
+        
+        body.dark {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+
+        /* أنيميشن الانتقال */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            z-index: 9999;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .page-transition.active {
+            transform: scaleY(1);
+            transform-origin: top;
+        }
+
+        /* زر تبديل اللغة */
+        .lang-switcher {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-switcher:hover {
+            transform: scale(1.1);
+        }
+
+        /* تأثير النقر على الأزرار */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%, -50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn:active:after {
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        /* الأقسام المشتركة */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(244, 123, 32, 0.2);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* الشريط العلوي */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 20px 0;
+            background-color: rgba(248, 250, 252, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        header.dark {
+            background-color: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .dark .nav-links a {
+            color: var(--light);
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .theme-toggle {
+            color: var(--light);
+        }
+
+        /* قسم الهيرو */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(248, 250, 252, 0.9) 0%, rgba(241, 245, 249, 0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dark #hero {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.8) 100%);
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-content h1 span {
+            color: var(--primary);
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-image {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 50%;
+            max-width: 700px;
+        }
+        
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.2;
+        }
+        
+        .shape-1 {
+            width: 400px;
+            height: 400px;
+            background-color: var(--primary);
+            top: -100px;
+            left: -100px;
+        }
+        
+        .shape-2 {
+            width: 600px;
+            height: 600px;
+            background-color: var(--secondary);
+            bottom: -150px;
+            right: -150px;
+        }
+
+        /* قسم الخدمات */
+        #services {
+            background-color: var(--light);
+        }
+        
+        .dark #services {
+            background-color: var(--dark);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .dark .service-card {
+            background-color: #334155;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(244, 123, 32, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* قسم أعمالنا */
+        #portfolio {
+            background-color: #f1f5f9;
+        }
+        
+        .dark #portfolio {
+            background-color: #0f172a;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .portfolio-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-overlay p {
+            color: #e2e8f0;
+            transform: translateY(20px);
+            transition: all 0.3s ease 0.1s;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay h3,
+        .portfolio-item:hover .portfolio-overlay p {
+            transform: translateY(0);
+        }
+
+        /* قسم آراء العملاء */
+        #testimonials {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            height: 400px;
+        }
+        
+        .testimonial {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+            z-index: 1;
+        }
+        
+        .dark .testimonial {
+            background-color: #334155;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .testimonial.active {
+            opacity: 1;
+            z-index: 2;
+        }
+        
+        .testimonial-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .testimonial-content::before {
+            content: '"';
+            font-size: 5rem;
+            position: absolute;
+            top: -30px;
+            left: -20px;
+            color: rgba(244, 123, 32, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .author-img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+        
+        .author-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .author-info p {
+            color: var(--gray);
+        }
+        
+        .testimonial-rating {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .star {
+            color: var(--secondary);
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-dot.active {
+            background-color: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* قسم اتصل بنا */
+        #contact {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .contact-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .contact-btn {
+            background-color: white;
+            color: var(--primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 15px 40px;
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+        }
+
+        /* الفوتر */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .footer-about p {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-right: 5px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        /* تأثيرات الظهور */
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        
+        [data-animate="show"] {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .animate-slideUp {
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content {
+                text-align: center;
+            }
+            
+            .hero-btns {
+                justify-content: center;
+            }
+            
+            .hero-image {
+                position: relative;
+                width: 100%;
+                margin-top: 50px;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    
+        @keyframes fadeZoom {
+            0% {
+                transform: scale(1);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+        }
+
+        #intro img {
+            display: block;
+        }
+
+        .hero-content p,
+        .section-title p,
+        .service-card p,
+        .portfolio-overlay p,
+        .testimonial-content,
+        .author-info p,
+        .contact-content p,
+        .footer-about p,
+        .footer-links a,
+        .footer-bottom {
+            color: #1e293b;
+        }
+
+        body.dark .hero-content p,
+        body.dark .section-title p,
+        body.dark .service-card p,
+        body.dark .portfolio-overlay p,
+        body.dark .testimonial-content,
+        body.dark .author-info p,
+        body.dark .contact-content p,
+        body.dark .footer-about p,
+        body.dark .footer-links a,
+        body.dark .footer-bottom {
+            color: #f1f5f9;
+        }
+
+        /* ألوان النصوص للوضع النهاري */
+        body {
+            color: #1e293b;
+            background-color: #f8fafc;
+        }
+
+        .footer-bottom, .footer-about, .footer-links a, .contact-content p, .hero-content p {
+            color: #1e293b;
+        }
+
+        /* الوضع الليلي */
+        body.dark {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        body.dark .footer-bottom, 
+        body.dark .footer-about, 
+        body.dark .footer-links a, 
+        body.dark .contact-content p, 
+        body.dark .hero-content p {
+            color: #f8fafc;
+        }
+
+        /* ألوان الفوتر للوضع الفاتح */
+        .footer-links a,
+        .footer-about p,
+        .footer-column p {
+            color: #1e293b;
+        }
+
+        /* ألوان الفوتر للوضع الداكن */
+        body.dark .footer-links a,
+        body.dark .footer-about p,
+        body.dark .footer-column p {
+            color: #f8fafc;
+        }
+
+        /* ألوان النصوص للفوتر للوضع الفاتح */
+        .footer-links a,
+        .footer-about p,
+        .footer-column p {
+            color: #1e293b !important;
+        }
+
+        /* ألوان النصوص للفوتر للوضع الداكن */
+        body.dark .footer-links a,
+        body.dark .footer-about p,
+        body.dark .footer-column p {
+            color: #f8fafc !important;
+        }
+
+        /* ألوان الفوتر للوضع الفاتح */
+        body:not(.dark) .footer,
+        body:not(.dark) .footer a,
+        body:not(.dark) .footer p,
+        body:not(.dark) .footer h4 {
+            color: #1e293b !important;
+        }
+
+        /* ألوان الفوتر للوضع الداكن */
+        body.dark .footer,
+        body.dark .footer a,
+        body.dark .footer p,
+        body.dark .footer h4 {
+            color: #f8fafc !important;
+        }
+
+        .intro-part {
+            flex: 1;
+            background-image: url('imegs/hero-desktop.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: revealPart 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .part-1 {
+            background-position: left;
+            animation-delay: 0s;
+        }
+
+        .part-2 {
+            background-position: center;
+            animation-delay: 0.5s;
+        }
+
+        .part-3 {
+            background-position: right;
+            animation-delay: 1s;
+        }
+
+        @keyframes revealPart {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+@keyframes zoomFade {
+  0% {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+  
+/* تحسين وضوح الفوتر */
+footer {
+    background-color: #0f172a;
+    color: #f8fafc;
+}
+.footer-about p,
+.footer-links a,
+.footer-bottom,
+.footer-column p {
+    color: #f8fafc !important;
+    opacity: 1 !important;
+}
+
+.footer-links a:hover {
+    color: #ffffff !important;
+    padding-right: 5px;
+}
+
+/* تفعيل أنيميشن الفوتر */
+footer [data-animate] {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+  
+/* تغيير لون خلفية قسم اتصل بنا */
+#contact {
+    background-color: #fd7717 !important;
+}
+  
+/* تغيير لون زر تغيير اللغة */
+.lang-switcher {
+    background-color: #fd7717 !important;
+}
+  
+/* إبداع في زر تغيير اللغة */
+.lang-switcher {
+    background-color: #fd7717 !important;
+    border: 2px solid white;
+    font-size: 1.1rem;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, rotate 0.6s ease;
+}
+
+/* عند المرور عليه */
+.lang-switcher:hover {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 8px 25px rgba(253, 119, 23, 0.4);
+}
+
+/* تأثير نبض مستمر */
+@keyframes pulseLangBtn {
+    0% { box-shadow: 0 0 0 0 rgba(253, 119, 23, 0.5); }
+    70% { box-shadow: 0 0 0 15px rgba(253, 119, 23, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(253, 119, 23, 0); }
+}
+.lang-switcher {
+    animation: pulseLangBtn 3s infinite;
+}
+  
+@keyframes popupBounce {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+  
+
+#intro {
+  height: 100vh;
+  margin-top: 80px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  background-color: #000134;
+  background-image: url('imegs/hero-desktop.jpg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 30px;
+  box-shadow: 0 0 60px rgba(255,255,255,0.4);
+  animation: heroIntroFade 2.5s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+  #intro {
+    background-image: url('imegs/hero-mobile.jpg');
+  }
+}
+
+@keyframes heroIntroFade {
+  0% {
+    opacity: 0;
+    transform: scale(1.08) rotateX(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateX(0);
+  }
+}
+
+}
+</style>
+<style disabled-previous="true">
+.service-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(145deg, #fd7e14, #ffa726);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: perspective(600px) rotateX(10deg) rotateY(10deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  transition: all 0.6s ease;
+}
+.service-card:hover .service-icon {
+  transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1.1);
+}
+
+/* أنيميشن دخول فاخر للكروت */
+@keyframes cardEntry {
+  0% { transform: scale(0.8) rotateY(20deg); opacity: 0; }
+  100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+}
+.animate-cardEntry {
+  animation: cardEntry 1s ease forwards;
+}
+</style>
+<style>
+/* أنيميشن حركة طلوع ونزول ناعم للكروت */
+@keyframes floatCard {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.service-card {
+  animation: floatCard 4s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+/* مع الحفاظ على تأثير الهوفر */
+.service-card:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+</style>
+<style>
+/* انيميشنات عامة */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* عناصر جاهزة للظهور */
+[data-animate-fade],
+[data-animate-zoom] {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease;
+}
+
+/* ظهور عند التمرير */
+.show-fade {
+  animation: fadeInUp 1s ease forwards;
+}
+
+.show-zoom {
+  animation: zoomIn 1s ease forwards;
+}
+
+/* تحسينات على الأزرار */
+a.button, button {
+  transition: all 0.4s ease;
+}
+
+a.button:hover, button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+</style>
+<style>
+/* ستايل السلايدر */
+.testimonials-slider {
+  position: relative;
+  overflow: hidden;
+  max-width: 600px;
+  margin: auto;
+}
+
+.testimonial-slide {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  border-radius: 15px;
+  background: #f9f9f9;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.testimonial-slide.active {
+  display: block;
+  animation: fadeInSlide 1s ease forwards;
+}
+
+@keyframes fadeInSlide {
+  from { opacity: 0; transform: translateX(100px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* أزرار التنقل */
+.slider-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.slider-buttons button {
+  background-color: #fd7e14;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slider-buttons button:hover {
+  background-color: #ffa726;
+}
+
+/* نجوم التقييم */
+.stars {
+  margin: 10px 0;
+  color: #ffc107;
+  font-size: 20px;
+}
+</style>
+</head>
+<body>
+<!-- زر تبديل اللغة -->
+<button class="lang-switcher" id="langSwitcher">
+   EN
+  </button>
+<!-- أنيميشن الانتقال -->
+<div class="page-transition" id="pageTransition">
+   Bravix
+  </div>
+<!-- الشريط العلوي -->
+<header id="header">
+<div class="container">
+<nav>
+<a class="logo" href="#">
+<img alt="Bravix Logo" src="imegs/Untitled-1LOGO.png" style="height: 55px; vertical-align: middle;"/>
+</a>
+<div class="nav-links">
+<a data-translate="home" href="#home">
+       الرئيسية
+      </a>
+<a data-translate="services" href="#services">
+       الخدمات
+      </a>
+<a data-translate="portfolio" href="#portfolio">
+       أعمالنا
+      </a>
+
+       آراء العملاء
+      
+<a data-translate="contact" href="#contact">
+       اتصل بنا
+      </a>
+</div>
+<button class="theme-toggle" id="themeToggle">
+<span id="themeIcon">
+       🌙
+      </span>
+</button>
+</nav>
+</div>
+</header>
+<!-- صورة المقدمة بتقسيم متحرك -->
+<section id="intro"></section>
+<section id="hero">
+<div class="hero-shapes">
+<div class="shape shape-1 animate-float">
+</div>
+<div class="shape shape-2 animate-float" style="animation-delay: 2s;">
+</div>
+</div>
+<div class="container">
+<div class="hero-content" data-animate="" data-animate-fade="">
+<h1 id="heroTitle">
+<span data-translate="innovative">
+       حلول رقمية
+      </span>
+<span data-translate="solutions">
+       مبتكرة لتحقيق النجاح
+      </span>
+</h1>
+<p data-translate="heroSubtitle" id="heroSubtitle">
+      نقدم في برافيكس حلولاً تقنية متكاملة تساعد عملك على النمو والتميز في السوق الرقمي
+     </p>
+<div class="hero-btns">
+<a class="btn btn-primary" data-translate="startProject" href="#contact" id="startProject">
+       ابدأ مشروعك
+      </a>
+<a class="btn btn-outline" data-translate="exploreServices" href="#services" id="exploreServices">
+       استكشف الخدمات
+      </a>
+</div>
+</div>
+</div>
+</section>
+<!-- قسم الخدمات -->
+<section data-animate-zoom="" id="services">
+<div class="container">
+<div class="section-title" data-animate="">
+<h2>خدماتنا المتكاملة</h2>
+<p>نقدم مجموعة واسعة من الخدمات المصممة خصيصاً لاحتياجات عملك</p>
+</div>
+<div class="services-grid">
+<!-- المربع الأول -->
+<div class="service-card animate-cardEntry" style="animation-delay: 0.2s;">
+<div class="service-icon">💻</div>
+<h3>صناعة المواقع</h3>
+<p>تصميم وتطوير مواقع ويب احترافية سريعة الاستجابة وتعمل بكفاءة عالية على جميع الأجهزة ونشرها باحترافية.</p>
+</div>
+<!-- المربع الثاني -->
+<div class="service-card animate-cardEntry" style="animation-delay: 0.4s;">
+<div class="service-icon">🎨</div>
+<h3>تصميم لوجو &amp; هوية بصرية</h3>
+<p>تصميم شعارات وهوية بصرية تعبر عن رؤيتك التجارية بتميز واحترافية، تشمل اختيار الألوان، الخطوط، والأدلة البصرية الكاملة.</p>
+</div>
+<!-- المربع الثالث -->
+<div class="service-card animate-cardEntry" style="animation-delay: 0.6s;">
+<div class="service-icon">🖼️</div>
+<h3>تصاميم إعلانات</h3>
+<p>تصميم كافة أنواع الإعلانات مثل بوسترات، تصاميم منتجات، بنرات إعلانية بجودة عالية تناسب مختلف المنصات.</p>
+</div>
+<!-- المربع الرابع -->
+<div class="service-card animate-cardEntry" style="animation-delay: 0.8s;">
+<div class="service-icon">📱</div>
+<h3>تسويق وإدارة حسابات سوشيال ميديا</h3>
+<p>نقدم حلولاً متكاملة لإدارة وتسويق حساباتك على منصات مثل انستقرام، فيسبوك، تويتر، لينكدإن باحترافية لزيادة الانتشار.</p>
+</div>
+<!-- المربع الخامس -->
+<div class="service-card animate-cardEntry" style="animation-delay: 1s;">
+<div class="service-icon">💡</div>
+<h3>استشارات</h3>
+<p>نقدم لك استشارات متخصصة في اختيار أجهزة الكمبيوتر والمعدات التقنية المناسبة لبداية مشروعك وتحقيق أفضل أداء.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- قسم أعمالنا -->
+<section data-animate-zoom="" id="portfolio">
+<div class="container">
+<div class="section-title" data-animate="">
+<h2 data-translate="ourWork">
+      أعمالنا الأخيرة
+     </h2>
+<p data-translate="portfolioDesc">
+      بعض المشاريع التي نفخر بها والتي تعكس مستوى احترافيتنا
+     </p>
+</div>
+<div class="portfolio-grid">
+<div class="portfolio-item" data-animate="" style="animation-delay: 0.1s">
+<div class="portfolio-img-placeholder" style="background: #eee; height: 100%; display: flex; align-items: center; justify-content: center;">
+<span data-translate="project1">
+        مشروع موقع تجارة إلكترونية
+       </span>
+</div>
+<div class="portfolio-overlay">
+<h3 data-translate="project1">
+        موقع تجارة إلكترونية
+       </h3>
+<p data-translate="webDevelopment">
+        تطوير ويب
+       </p>
+</div>
+</div>
+<div class="portfolio-item" data-animate="" style="animation-delay: 0.2s">
+<div class="portfolio-img-placeholder" style="background: #ddd; height: 100%; display: flex; align-items: center; justify-content: center;">
+<span data-translate="project2">
+        تطبيق توصيل طعام
+       </span>
+</div>
+<div class="portfolio-overlay">
+<h3 data-translate="project2">
+        تطبيق توصيل طعام
+       </h3>
+<p data-translate="mobileDevelopment">
+        تطوير جوال
+       </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- قسم آراء العملاء -->
+<!-- قسم اتصل بنا -->
+<section data-animate-fade="" id="contact">
+<div class="container">
+<div class="contact-content" data-animate="">
+<h2 data-translate="readyToStart">
+      جاهزون لبدء مشروعك؟
+     </h2>
+<p data-translate="contactDesc">
+      اتصل بنا اليوم واحصل على استشارة مجانية من خبرائنا لتحويل أفكارك إلى واقع ملموس
+     </p>
+<a class="btn contact-btn" data-translate="contactUs" href="#" onclick="document.getElementById('contactModal').style.display='flex'; return false;">
+      تواصل معنا
+     </a>
+</div>
+</div>
+</section>
+<!-- الفوتر -->
+<footer data-animate-fade="">
+<div class="container">
+<div class="footer-content">
+<div class="footer-about" data-animate="">
+<div class="footer-logo">
+<span>
+        Bravix
+       </span>
+</div>
+<p data-translate="footerAbout">نقدم في برافيكس حلولاً تقنية متكاملة تساعد عملك على النمو والتميز في السوق الرقمي</p>
+<div class="social-links">
+<a class="social-link" href="#">
+        📱
+       </a>
+<a class="social-link" href="#">
+        💻
+       </a>
+<a class="social-link" href="#">
+        📸
+       </a>
+<a class="social-link" href="#">
+        🔗
+       </a>
+</div>
+</div>
+<div class="footer-links" data-animate="" style="animation-delay: 0.2s">
+<h3 data-translate="quickLinks">
+       روابط سريعة
+      </h3>
+<ul>
+<li>
+<a data-translate="home" href="#home">
+         الرئيسية
+        </a>
+</li>
+<li>
+<a data-translate="services" href="#services">
+         الخدمات
+        </a>
+</li>
+<li>
+<a data-translate="portfolio" href="#portfolio">
+         أعمالنا
+        </a>
+</li>
+<li>
+<a data-translate="contact" href="#contact">
+         اتصل بنا
+        </a>
+</li>
+</ul>
+</div>
+<div class="footer-links" data-animate="" style="animation-delay: 0.4s">
+<h3 data-translate="ourServices">
+       الخدمات
+      </h3>
+<ul><li><a href="#">صناعة المواقع</a></li><li><a href="#">تصميم لوجو &amp; هوية بصرية</a></li><li><a href="#">تصاميم إعلانات</a></li><li><a href="#">تسويق وإدارة حسابات سوشيال ميديا</a></li><li><a href="#">استشارات</a></li></ul>
+</div>
+<div class="footer-links" data-animate="" style="animation-delay: 0.6s">
+<h3 data-translate="contactUs">
+       اتصل بنا
+      </h3>
+<ul>
+<li data-translate="address">
+        مصر ، القاهرة ،مدينة نصر
+       </li>
+<li>
+        info@bravix.com
+       </li>
+<li data-translate="phone">
+        +966 12 345 6789
+       </li>
+<li data-translate="workingHours">
+        الأحد - الخميس: 9 ص - 5 م
+       </li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom" data-animate="">
+<p>
+  ©
+  <span id="currentYear"></span>
+  Bravix.
+  <span data-translate="allRights">جميع الحقوق محفوظة</span>.
+  <br/>
+<span style="font-weight:bold; color:#fd7717; font-size: 1.1rem; display: inline-block; margin-top: 10px;">
+    🚀 Designed by <span style="color:white;">Ali Al-Anabi</span>
+</span>
+</p>
+</div>
+</div>
+</footer>
+<script>
+   // نظام الترجمة
+        const translations = {
+            ar: {
+                home: "الرئيسية",
+                services: "الخدمات",
+                portfolio: "أعمالنا",
+                testimonials: "آراء العملاء",
+                contact: "اتصل بنا",
+                innovative: "حلول رقمية",
+                solutions: "مبتكرة لتحقيق النجاح",
+                heroSubtitle: "نقدم في برافيكس حلولاً تقنية متكاملة تساعد عملك على النمو والتميز في السوق الرقمي",
+                startProject: "ابدأ مشروعك",
+                exploreServices: "استكشف الخدمات",
+                ourServices: "خدماتنا المتكاملة",
+                servicesDesc: "نقدم مجموعة واسعة من الخدمات الرقمية المصممة خصيصاً لاحتياجات عملك",
+                webDev: "تطوير المواقع",
+                webDevDesc: "تصميم وتطوير مواقع ويب احترافية سريعة الاستجابة وتعمل بكفاءة عالية على جميع الأجهزة",
+                mobileApp: "تطبيقات الجوال",
+                mobileAppDesc: "بناء تطبيقات جوال مبتكرة لنظامي iOS و Android مع واجهات مستخدم جذابة وسهلة الاستخدام",
+                digitalMarketing: "التسويق الرقمي",
+                digitalMarketingDesc: "حملات تسويقية مدروسة لزيادة ظهور علامتك التجارية وجذب العملاء المحتملين",
+                learnMore: "المزيد",
+                ourWork: "أعمالنا الأخيرة",
+                portfolioDesc: "بعض المشاريع التي نفخر بها والتي تعكس مستوى احترافيتنا",
+                project1: "موقع تجارة إلكترونية",
+                project2: "تطبيق توصيل طعام",
+                webDevelopment: "تطوير ويب",
+                mobileDevelopment: "تطوير جوال",
+                testimonialsTitle: "آراء عملائنا",
+                testimonialsDesc: "انظر ماذا يقول عملاؤنا عن تجربتهم مع برافيكس",
+                testimonial1: "لقد ساعدنا فريق برافيكس على تحويل موقعنا الإلكتروني القديم إلى منصة حديثة ساهمت في زيادة مبيعاتنا بنسبة 150% خلال الأشهر الثلاثة الأولى. الاحترافية والاهتمام بالتفاصيل كانا مميزين حقاً.",
+                client1Name: "أحمد السيد",
+                client1Position: "مدير تسويق، شركة التقنية",
+                readyToStart: "جاهزون لبدء مشروعك؟",
+                contactDesc: "اتصل بنا اليوم واحصل على استشارة مجانية من خبرائنا لتحويل أفكارك إلى واقع ملموس",
+                contactUs: "تواصل معنا",
+                footerAbout: "نقدم في برافيكس حلولاً تقنية متكاملة تساعد عملك على النمو والتميز في السوق الرقمي",
+                quickLinks: "روابط سريعة",
+                graphicDesign: "تصميم جرافيك",
+                seo: "تحسين محركات البحث",
+                address: "مصر ، القاهرة ، مدينة نصر",
+                phone: "1157100942 +20",
+                workingHours: "الأحد - الخميس: 9 ص - 5 م",
+                allRights: "جميع الحقوق محفوظة"
+            },
+            en: {
+                home: "Home",
+                services: "Services",
+                portfolio: "Portfolio",
+                testimonials: "Testimonials",
+                contact: "Contact",
+                innovative: "Innovative",
+                solutions: "Digital Solutions",
+                heroSubtitle: "At Bravix, we provide integrated technical solutions that help your business grow in the digital market",
+                startProject: "Start Project",
+                exploreServices: "Explore Services",
+                ourServices: "Our Services",
+                servicesDesc: "We offer a wide range of digital services designed specifically for your business needs",
+                webDev: "Web Development",
+                webDevDesc: "Design and develop professional responsive websites that work efficiently on all devices",
+                mobileApp: "Mobile Apps",
+                mobileAppDesc: "Build innovative mobile applications for iOS and Android with attractive and easy-to-use interfaces",
+                digitalMarketing: "Digital Marketing",
+                digitalMarketingDesc: "Well-studied marketing campaigns to increase your brand visibility and attract potential customers",
+                learnMore: "Learn More",
+                ourWork: "Our Recent Work",
+                portfolioDesc: "Some projects we're proud of that reflect our professionalism",
+                project1: "E-commerce Website",
+                project2: "Food Delivery App",
+                webDevelopment: "Web Development",
+                mobileDevelopment: "Mobile Development",
+                testimonialsTitle: "Client Testimonials",
+                testimonialsDesc: "See what our clients say about their experience with Bravix",
+                testimonial1: "Bravix team helped us transform our old website into a modern platform that increased our sales by 150% in the first three months. The professionalism and attention to detail were truly remarkable.",
+                client1Name: "Ahmed Al-Sayed",
+                client1Position: "Marketing Director, Tech Company",
+                readyToStart: "Ready to Start Your Project?",
+                contactDesc: "Contact us today for a free consultation with our experts to turn your ideas into reality",
+                contactUs: "Contact Us",
+                footerAbout: "We provide integrated digital solutions that help companies grow and thrive in the digital age through a team of creative experts.",
+                quickLinks: "Quick Links",
+                graphicDesign: "Graphic Design",
+                seo: "SEO",
+                address: "Riyadh, Saudi Arabia",
+                phone: "+966 12 345 6789",
+                workingHours: "Sun - Thu: 9 AM - 5 PM",
+                allRights: "All Rights Reserved"
+            }
+        };
+
+        // عناصر التحكم
+        const langSwitcher = document.getElementById('langSwitcher');
+        const htmlDir = document.getElementById('htmlDir');
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        const header = document.getElementById('header');
+        const pageTransition = document.getElementById('pageTransition');
+        const currentYear = document.getElementById('currentYear');
+        
+        let currentLang = 'ar';
+
+        // تحديث السنة الحالية
+        currentYear.textContent = new Date().getFullYear();
+
+        // تبديل اللغة
+        langSwitcher.addEventListener('click', () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('lang', currentLang);
+            
+            // تغيير اتجاه الصفحة
+            htmlDir.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            htmlDir.setAttribute('lang', currentLang);
+            
+            // تغيير نص الزر
+            langSwitcher.textContent = currentLang === 'ar' ? 'EN' : 'AR';
+            
+            // تحديث النصوص
+            updateTexts();
+        });
+
+        function updateTexts() {
+            const langData = translations[currentLang];
+            
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (langData[key]) el.textContent = langData[key];
+            });
+        }
+
+        // الوضع الليلي
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            header.classList.toggle('dark');
+            
+            if(body.classList.contains('dark')) {
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // تأثير الانتقال
+        document.querySelectorAll('a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
+                
+                // عرض أنيميشن الانتقال
+                pageTransition.classList.add('active');
+                
+                // الانتقال بعد التأخير
+                setTimeout(() => {
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                    
+                    // إخفاء الأنيميشن
+                    setTimeout(() => {
+                        pageTransition.classList.remove('active');
+                    }, 600);
+                }, 300);
+            });
+        });
+
+        // شريط آراء العملاء
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        let currentTestimonial = 0;
+        
+        function showTestimonial(index) {
+            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            testimonials[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showTestimonial(index);
+            });
+        });
+        
+        // التمرير التلقائي
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, 5000);
+
+        // تحميل التفضيلات
+        function loadPreferences() {
+            // اللغة
+            if (localStorage.getItem('lang')) {
+                currentLang = localStorage.getItem('lang');
+                htmlDir.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+                htmlDir.setAttribute('lang', currentLang);
+                langSwitcher.textContent = currentLang === 'ar' ? 'EN' : 'AR';
+                updateTexts();
+            }
+            
+            // الوضع الليلي
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark');
+                header.classList.add('dark');
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        // تأثيرات الظهور عند التمرير
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('[data-animate]');
+            const windowHeight = window.innerHeight;
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                
+                if (elementPosition < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // تشغيل عند التحميل
+        window.addEventListener('DOMContentLoaded', () => {
+            loadPreferences();
+            animateOnScroll();
+            
+            // إضافة مستمع لحدث التمرير
+            window.addEventListener('scroll', animateOnScroll);
+        });
+
+        // تغيير لون الهيدر عند التمرير
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                if(body.classList.contains('dark')) {
+                    header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
+                }
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+  </script>
+<script>
+   function showConfirmation() {
+    document.getElementById("confirmation").style.display = "block";
+    return false;
+  }
+  </script>
+<div class="modal" id="contactModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+background:rgba(0,0,0,0.6); z-index:10000; align-items:center; justify-content:center; animation:fadeIn 0.4s ease-in-out;">
+<div style="background:white; color:#1e293b; max-width:500px; width:90%; padding:30px; border-radius:20px; position:relative; box-shadow:0 30px 80px rgba(0,0,0,0.3); animation:zoomFade 0.5s ease-out;">
+<h2 style="margin-bottom:20px;">
+     ابدأ مشروعك الآن
+    </h2>
+<form onsubmit="return submitContactForm()" style="display:flex; flex-direction:column; gap:15px;">
+<input placeholder="الاسم الكامل" required="" style="padding:12px; border:1px solid #ddd; border-radius:8px;" type="text"/>
+<input placeholder="البريد الإلكتروني" required="" style="padding:12px; border:1px solid #ddd; border-radius:8px;" type="email"/>
+<input placeholder="رقم الهاتف مع مفتاح الدولة" required="" style="padding:12px; border:1px solid #ddd; border-radius:8px;" type="tel"/>
+<textarea placeholder="نبذة عن الطلب" required="" style="padding:12px; border:1px solid #ddd; border-radius:8px; resize:vertical;"></textarea>
+<button style="padding:12px; background:#fd7717; color:white; border:none; border-radius:50px; font-weight:bold;" type="submit">
+      إرسال
+     </button>
+</form>
+<button onclick="document.getElementById('contactModal').style.display='none'" style="position:absolute; top:10px; right:15px; font-size:20px; border:none; background:none; cursor:pointer;">
+     ✖️
+    </button>
+</div>
+</div>
+<!-- رسالة تأكيد منبثقة -->
+<div id="formConfirm" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7);
+z-index:10001; display:none; flex-direction:column; justify-content:center; align-items:center; animation:fadeIn 0.6s ease-in-out;">
+<div style="background:#e0fbe3; color:#065f46; padding:30px 40px; border-radius:20px; text-align:center;
+  box-shadow:0 0 50px rgba(255,255,255,0.3); transform:scale(0); animation:popupBounce 0.6s ease-out forwards;">
+<button onclick="document.getElementById('formConfirm').style.display='none'" style="position:absolute; top:15px; right:20px; font-size:18px; background:none; border:none; color:#065f46; cursor:pointer;">
+     ✖
+    </button>
+<div style="font-size:4rem; margin-bottom:15px;">
+     ✅
+    </div>
+<div style="font-weight:bold; font-size:1.3rem; margin-bottom:10px;">
+     تم إرسال النموذج بنجاح
+    </div>
+<small>
+     📞 سيتم التواصل معك قريبًا
+    </small>
+</div>
+</div>
+<script>
+   function submitContactForm() {
+    const modal = document.getElementById("contactModal");
+    const confirm = document.getElementById("formConfirm");
+    const form = modal.querySelector("form");
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return false;
+    }
+    confirm.style.display = "flex";
+    modal.style.display = "none";
+    setTimeout(() => {
+        confirm.style.display = "none";
+    }, 3000);
+    return false;
+}
+  </script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const fadeElements = document.querySelectorAll('[data-animate-fade]');
+  const zoomElements = document.querySelectorAll('[data-animate-zoom]');
+
+  function revealElements() {
+    fadeElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 50) {
+        el.classList.add('show-fade');
+      }
+    });
+    zoomElements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 50) {
+        el.classList.add('show-zoom');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealElements);
+  revealElements(); // كشف مبدئي عند التحميل
+});
+</script>
+<script>
+let currentSlide = 0;
+
+function showSlide(index) {
+  const slides = document.querySelectorAll('.testimonial-slide');
+  if (index >= slides.length) currentSlide = 0;
+  if (index < 0) currentSlide = slides.length - 1;
+
+  slides.forEach(slide => slide.classList.remove('active'));
+  slides[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+  currentSlide++;
+  showSlide(currentSlide);
+}
+
+function prevSlide() {
+  currentSlide--;
+  showSlide(currentSlide);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  showSlide(currentSlide);
+});
+</script>
+</body>
+</html>
